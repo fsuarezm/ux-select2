@@ -1,10 +1,10 @@
 {% block select2_widget -%}
-    {%- set dataController = (attr['data-controller']|default('') ~ ' select2')|trim -%}
+    {%- set dataController = (attr['data-controller']|default('') ~ ' fsuarezm--ux-select2--select2')|trim -%}
 
     {%- set attr = attr|merge({
         'data-controller': dataController,
-        'data-select2-url': path(autocomplete_url),
-        'data-select2-config': select2_options,
+        'fsuarezm--ux-select2--select2-url': path(autocomplete_url),
+        'fsuarezm--ux-select2--select2-config': select2_options,
     }) -%}
 
     {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) -%}
