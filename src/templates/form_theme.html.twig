@@ -3,8 +3,8 @@
 
     {%- set attr = attr|merge({
         'data-controller': dataController,
-        'fsuarezm--ux-select2--select2-url': path(autocomplete_url),
-        'fsuarezm--ux-select2--select2-config': select2_options,
+        'data-fsuarezm--ux-select2--select2-url': path(autocomplete_url),
+        'data-fsuarezm--ux-select2--select2-config': select2_options,
     }) -%}
 
     {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) -%}
