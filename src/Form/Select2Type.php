@@ -30,14 +30,14 @@ class Select2Type extends AbstractType
             ->setAllowedTypes('autocomplete_url', 'string');
 
         $resolver
-            ->setDefault('placeholder', '')
-            ->setAllowedTypes('placeholder', 'string');
+            ->setDefault('select2_options', [])
+            ->setAllowedTypes('select2_options', 'array');
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['autocomplete_url'] = $options['autocomplete_url'];
-        $view->vars['placeholder'] = $options['placeholder'];
+        $view->vars['select2_options'] = \json_encode($options['select2_options']);
     }
 
     public function getParent(): ?string

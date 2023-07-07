@@ -38,7 +38,7 @@ Add controler to assets/controllers.json
     "controllers": {
         // ...
         "@fsuarezm/ux-select2": {
-            "ckeditor": {
+            "select2": {
                 "enabled": true,
                 "fetch": "eager",
                 "autoimport": {

@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "symfony": {
     "controllers": {
-      "ckeditor": {
+      "select2": {
         "main": "dist/controller.js",
         "fetch": "eager",
         "enabled": true,

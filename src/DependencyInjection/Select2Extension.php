@@ -26,7 +26,7 @@ class Select2Extension extends Extension implements PrependExtensionInterface
     public function load(array $configs, ContainerBuilder $container)
     {
         $container
-            ->setDefinition('form.ckeditor', new Definition(Select2Type::class))
+            ->setDefinition('form.select2', new Definition(Select2Type::class))
             ->addTag('form.type')
             ->setPublic(false)
         ;
