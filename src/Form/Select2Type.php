@@ -26,12 +26,8 @@ class Select2Type extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
-            ->setDefault('autocomplete-url', '')
-            ->setAllowedTypes('autocomplete-url', 'string');
-
-        $resolver
-            ->setDefault('language', '')
-            ->setAllowedTypes('language', 'string');
+            ->setDefault('autocomplete_url', '')
+            ->setAllowedTypes('autocomplete_url', 'string');
 
         $resolver
             ->setDefault('placeholder', '')
@@ -40,8 +36,7 @@ class Select2Type extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
-        $view->vars['autocomplete-url'] = $options['autocomplete-url'];
-        $view->vars['language'] = $options['language'];
+        $view->vars['autocomplete_url'] = $options['autocomplete_url'];
         $view->vars['placeholder'] = $options['placeholder'];
     }
 

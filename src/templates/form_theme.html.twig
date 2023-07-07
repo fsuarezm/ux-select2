@@ -1,3 +1,23 @@
 {% block select2_widget -%}
-    {{ block('form_widget_simple') }}
+    {%- set dataController = (attr['data-controller']|default('') ~ ' select2')|trim -%}
+
+    {%- set attr = attr|merge({
+        'data-controller': dataController,
+        'data-select2-url': path(autocomplete_url),
+        'data-select2-config': select2_options,
+    }) -%}
+
+    {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) -%}
+
+    {%- if required and (attr.size is not defined or attr.size <= 1) -%}
+        {% set required = false %}
+    {%- endif -%}
+
+    {% apply spaceless %}
+        <select {{ block('widget_attributes') }}>
+            {% if value is not empty %}
+                <option value="{{ value.id }}" selected>{{ value }}</option>
+            {% endif %}
+        </select>
+    {% endapply %}
 {%- endblock %}
