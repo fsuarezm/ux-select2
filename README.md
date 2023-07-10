@@ -103,8 +103,8 @@ class CustomFormType extends AbstractType
             ->add('select', Select2Type::class, [
                 'choices'  => [],
                 'autocomplete_url' => 'app_query_select2',
-                    'select2_options' => [
-                        'theme' => 'bootstrap4',
+                'select2_options' => [
+                    'theme' => 'bootstrap4',
                 ],
             ]);
             
@@ -184,8 +184,8 @@ class CustomFormType extends AbstractType
                 'choices'  => [],
                 'choice_label' => 'name',
                 'autocomplete_url' => 'app_query_select2',
-                    'select2_options' => [
-                        'theme' => 'bootstrap4',
+                'select2_options' => [
+                    'theme' => 'bootstrap4',
                 ],
             ]);
             
