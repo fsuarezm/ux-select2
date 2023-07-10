@@ -3,21 +3,18 @@
 
     {%- set attr = attr|merge({
         'data-controller': dataController,
-        'data-fsuarezm--ux-select2--select2-url': path(autocomplete_url),
         'data-fsuarezm--ux-select2--select2-config': select2_options,
     }) -%}
 
-    {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) -%}
+    {%- if autocomplete_url %}
+        {%- set attr = attr|merge({
+            'data-fsuarezm--ux-select2--select2-url': path(autocomplete_url),
+        }) -%}
+    {% endif -%}
 
-    {%- if required and (attr.size is not defined or attr.size <= 1) -%}
-        {% set required = false %}
-    {%- endif -%}
+    {{ block('choice_widget') }}
+{%- endblock %}
 
-    {% apply spaceless %}
-        <select {{ block('widget_attributes') }}>
-            {% if value is not empty %}
-                <option value="{{ value.id }}" selected>{{ value }}</option>
-            {% endif %}
-        </select>
-    {% endapply %}
+{% block entity_select2_widget -%}
+    {{ block('select2_widget') }}
 {%- endblock %}

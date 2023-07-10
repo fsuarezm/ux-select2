@@ -30,7 +30,7 @@ return [
 ];
 ```
 
-### Enable stimulus controller
+### Enable Stimulus controller
 
 Add controler to assets/controllers.json
 
@@ -54,9 +54,14 @@ Add controler to assets/controllers.json
 Install dependency
 ```bash
 $ yarn install --force
+$ yarn build
+or ...
+$ yarn watch
 ```
 
 ## Usage
+
+### Select2Type
 
 ```php
 // ...
@@ -69,18 +74,66 @@ class CustomFormType extends AbstractType
         $builder
             // ...      
             ->add('select', Select2Type::class, [
-                'autocomplete_url' => 'app_query_select2',
-                    'select2_options' => [
-                        'theme' => 'bootstrap4',
+                'choices'  => [
+                    'Maybe' => null,
+                    'Yes' => true,
+                    'No' => false,
                 ],
-            ])
-            // ...
-            ;
+            ]);
     }
 
     // ...
 }
+```
 
+### Select2Type with ajax query
+
+```php
+// ...
+use FSM\Symfony\UX\Select2\Form\Select2Type;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+
+class CustomFormType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            // ...      
+            ->add('select', Select2Type::class, [
+                'choices'  => [],
+                'autocomplete_url' => 'app_query_select2',
+                    'select2_options' => [
+                        'theme' => 'bootstrap4',
+                ],
+            ]);
+            
+        $getterValue = function($id) {
+            // Logic for retreive [id => label] option        
+        };
+            
+        $builder->addEventListener(
+            FormEvents::PRE_SUBMIT,
+            function (FormEvent $event) use ($getterValue) {
+                $data = $event->getData();
+                $form = $event->getForm();
+                if (isset($data['select']) and $data['select'] != null) {
+                    $selected = $data['select'];
+
+                    $form->add('select', Select2Type::class, [
+                        'choices' => $getterValue($selected),
+                        'autocomplete_url' => 'app_query_select2',
+                        'select2_options' => [
+                            'theme' => 'bootstrap4',
+                        ],
+                    ]);
+                }
+            }
+        );
+    }
+
+    // ...
+}
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -110,5 +163,62 @@ class CustomController extends AbstractController
         ]);
     }
 }
+```
 
+### EntitySelect2Type with ajax query
+
+```php
+// ...
+use Doctrine\ORM\EntityRepository;
+use FSM\Symfony\UX\Select2\Form\Select2Type;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+
+class CustomFormType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            // ...      
+            ->add('select', EntitySelect2Type::class, [
+                'choices'  => [],
+                'choice_label' => 'name',
+                'autocomplete_url' => 'app_query_select2',
+                    'select2_options' => [
+                        'theme' => 'bootstrap4',
+                ],
+            ]);
+            
+        $getterValue = function($id) {
+            // Logic for query and get [id => label] option        
+        };
+            
+        $builder->addEventListener(
+            FormEvents::PRE_SUBMIT,
+            function (FormEvent $event) {
+                $data = $event->getData();
+                $form = $event->getForm();
+                if (isset($data['select']) and $data['select'] != null) {
+                    $selected = $data['select'];
+
+                    $form->add('select', EntitySelect2Type::class, [
+                        'class' => EntityClass::class,
+                        'choice_label' => 'name',
+                        'autocomplete_url' => 'app_query_select2',
+                        'select2_options' => [
+                            'theme' => 'bootstrap4',
+                        ],
+                        'query_builder' => function (EntityRepository $repository) use ($selected) {
+                            return $repository->createQueryBuilder('entity')
+                                ->where('entity.id = :id')
+                                ->setParameter('id', $selected);
+                        },
+                    ]);
+                }
+            }
+        );
+    }
+
+    // ...
+}
 ```
