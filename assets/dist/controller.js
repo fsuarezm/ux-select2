@@ -72,7 +72,7 @@ var _default = /*#__PURE__*/function (_Controller) {
               };
             },
             // to indicate that infinite scrolling can be used
-            processResults: function processResults(data, params) {
+            processResults: function processResults(data) {
               return {
                 results: data.results,
                 pagination: {
