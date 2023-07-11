@@ -3,7 +3,6 @@ import 'select2';
 import 'select2/dist/js/i18n/es';
 import 'select2/dist/js/i18n/ca';
 
-/* stimulusFetch: 'lazy' */
 export default class extends Controller {
     isSelect = () => this.element.nodeName === 'SELECT';
 
