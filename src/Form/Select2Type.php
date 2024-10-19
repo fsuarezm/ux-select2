@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of fsuarezm/ux-select2
+ * This file is part of fsuarezm/ux-select2.
  *
  * (c) Francisco Suárez Mulero
  * @author: Francisco Suárez Mulero

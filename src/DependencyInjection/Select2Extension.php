@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of fsuarezm/ux-select2
+ * This file is part of fsuarezm/ux-select2.
  *
  * (c) Francisco Suárez Mulero
  * @author: Francisco Suárez Mulero
@@ -23,7 +23,7 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 
 class Select2Extension extends Extension implements PrependExtensionInterface
 {
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $container
             ->setDefinition('form.select2', new Definition(Select2Type::class))
@@ -32,7 +32,7 @@ class Select2Extension extends Extension implements PrependExtensionInterface
         ;
     }
 
-    public function prepend(ContainerBuilder $container)
+    public function prepend(ContainerBuilder $container): void
     {
         // Register the Select2 form theme if TwigBundle is available
         $bundles = $container->getParameter('kernel.bundles');

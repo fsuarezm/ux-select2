@@ -2,7 +2,7 @@
   "name": "@fsm/ux-select2",
   "description": "Input Select2 for Symfony Forms",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "symfony": {
     "controllers": {
       "select2": {
